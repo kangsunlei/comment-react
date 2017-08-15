@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import {formatDate} from '../core/common';
+import React, { Component, PropTypes } from 'react'
+import {formatDate} from '../core/common'
 
 export default class Comment extends Component {
   static propTypes = {

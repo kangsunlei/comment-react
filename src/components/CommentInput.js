@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { addComment } from '../reducers/comments'
 
-export default class CommentInput extends Component {
+class CommentInput extends Component {
   static propTypes = {
-    username: PropTypes.any,
+    comments: PropTypes.array,
     onSubmit: PropTypes.func,
-    onUserNameInputBlur: PropTypes.func
+    username: PropTypes.any
   }
 
   static defaultProps = {
@@ -17,6 +19,23 @@ export default class CommentInput extends Component {
       username: props.username,
       content: props.content
     }
+  }
+
+  componentWillMount () {
+    this._loadUsername()
+  }
+
+  _loadUsername () {
+    if(this.state.username) return
+
+    const username = localStorage.getItem('username')
+    if (username) {
+      this.setState({ username })
+    }
+  }
+
+  _saveUsername (username) {
+    localStorage.setItem('username', username)
   }
 
   componentDidMount () {
@@ -41,15 +60,25 @@ export default class CommentInput extends Component {
     })
   }
 
-  handleSubmit () {
+  handleSubmitComment (comment) {
+    if (!comment) return
+    if (!comment.username) return alert('请输入用户名')
+    if (!comment.content) return alert('请输入评论内容')
+    const { comments } = this.props
+    const newComments = [...comments, comment]
+    localStorage.setItem('comments', JSON.stringify(newComments))
     if (this.props.onSubmit) {
-      this.props.onSubmit({
-        id: `com_${new Date().getTime()}`,
-        username: this.state.username,
-        content: this.state.content,
-        createdTime: +new Date()
-      })
+      this.props.onSubmit(comment)
     }
+  }
+
+  handleSubmit () {
+    this.handleSubmitComment({
+      id: `com_${new Date().getTime()}`,
+      username: this.state.username,
+      content: this.state.content,
+      createdTime: +new Date()
+    })
     this.setState({ content: '' })
   }
 
@@ -84,3 +113,22 @@ export default class CommentInput extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    comments: state.comments
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (comment) => {
+      dispatch(addComment(comment))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CommentInput)

@@ -31,12 +31,10 @@ export default function (state, action) {
         ]
       }
     case MODIFY_COMMENT:
-      // 修改评论
-      console.log(action)
       return {
-        commentID: action.comment,
-        showMask: action.showMask,
-        comments: [...state.comments]
+        modifyIndex: action.commentIndex,
+        comments: [...state.comments],
+        showMask: true
       }
     default:
       return state
@@ -65,10 +63,9 @@ export const deleteComment = (commentIndex) => {
   }
 }
 
-export const modifyComment = (comment, showMask) => {
+export const modifyComment = (commentIndex) => {
   return {
     type: MODIFY_COMMENT,
-    comment,
-    showMask
+    commentIndex
   }
 }
