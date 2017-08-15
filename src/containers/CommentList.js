@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../components/CommentList'
-import { initComments, deleteComment } from '../reducers/comments'
+import { initComments, deleteComment, modifyComment } from '../reducers/comments'
 
 class CommentListContainer extends Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class CommentListContainer extends Component {
   }
 
   handleModifyComment (comment) {
-    console.log(comment)
+    this.props.modifyComment(comment, true);
   }
 
   render () {
@@ -59,6 +59,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteComment: (commentIndex) => {
       dispatch(deleteComment(commentIndex))
+    },
+    modifyComment: (comment, showMask) => {
+      dispatch(modifyComment(comment, showMask))
     }
   }
 }

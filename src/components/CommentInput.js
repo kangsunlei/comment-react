@@ -44,6 +44,7 @@ export default class CommentInput extends Component {
   handleSubmit () {
     if (this.props.onSubmit) {
       this.props.onSubmit({
+        id: `com_${new Date().getTime()}`,
         username: this.state.username,
         content: this.state.content,
         createdTime: +new Date()
