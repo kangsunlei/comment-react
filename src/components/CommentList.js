@@ -18,27 +18,27 @@ export default class CommentList extends Component {
   }
 
   componentWillMount () {
-    this._loadComments()
+    this._loadComments();
   }
 
   _loadComments () {
-    let comments = localStorage.getItem('comments')
-    comments = comments ? JSON.parse(comments) : []
-    this.context.dispatch(initComments(comments))
+    let comments = localStorage.getItem('comments');
+    comments = comments ? JSON.parse(comments) : [];
+    this.context.dispatch(initComments(comments));
   }
 
   handleDeleteComment (index) {
-    const { comments } = this.props
+    const { comments } = this.props;
     const newComments = [
       ...comments.slice(0, index),
       ...comments.slice(index + 1)
-    ]
-    localStorage.setItem('comments', JSON.stringify(newComments))
-    this.context.dispatch(deleteComment(index))
+    ];
+    localStorage.setItem('comments', JSON.stringify(newComments));
+    this.context.dispatch(deleteComment(index));
   }
 
   handleModifyComment (index) {
-    this.context.dispatch(modifyComment(index))
+    this.context.dispatch(modifyComment(index));
   }
 
   render() {
@@ -54,6 +54,6 @@ export default class CommentList extends Component {
             onModifyComment={this.handleModifyComment.bind(this)} />
         )}
       </div>
-    )
+    );
   }
 }

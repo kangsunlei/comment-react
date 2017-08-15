@@ -1,61 +1,61 @@
-import React, { Component, PropTypes } from 'react'
-import {formatDate} from '../core/common'
+import React, { Component, PropTypes } from 'react';
+import {formatDate} from '../core/common';
 
 export default class Comment extends Component {
   static propTypes = {
     comment: PropTypes.object.isRequired,
     onDeleteComment: PropTypes.func,
     index: PropTypes.number
-  }
+  };
 
   constructor () {
-    super()
-    this.state = { timeString: '' }
+    super();
+    this.state = { timeString: '' };
   }
 
   componentWillMount () {
-    this._updateTimeString()
+    this._updateTimeString();
     this._timer = setInterval(
       this._updateTimeString.bind(this),
       5000
-    )
+    );
   }
 
   componentWillUnmount () {
-    clearInterval(this._timer)
+    clearInterval(this._timer);
   }
 
   _updateTimeString () {
-    const comment = this.props.comment
+    const comment = this.props.comment;
     this.setState({
       timeString: formatDate(comment.createdTime)
-    })
+    });
   }
 
   _getProcessedContent (content) {
     return content
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;")
-      .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+      .replace(/`([\S\s]+?)`/g, '<code>$1</code>');
   }
 
   handleDeleteComment () {
     if (this.props.onDeleteComment) {
-      this.props.onDeleteComment(this.props.index)
+      this.props.onDeleteComment(this.props.index);
     }
   }
 
   handleModifyComment () {
     if (this.props.onModifyComment) {
-      this.props.onModifyComment(this.props.index)
+      this.props.onModifyComment(this.props.index);
     }
   }
 
   render () {
-    const comment = this.props.comment
+    const {comment} = this.props;
     return (
       <div className='comment'>
         <div className='comment-user'>
@@ -80,6 +80,6 @@ export default class Comment extends Component {
           删除
         </span>
       </div>
-    )
+    );
   }
 }

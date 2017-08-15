@@ -34,7 +34,7 @@ class CommentApp extends Component {
             <CommentInput isModify={true} index={modifyIndex} comments={comments} onSubmit={this.addComment} />
           </div> }
       </div>
-    )
+    );
   }
 }
 
@@ -43,9 +43,9 @@ const mapStateToProps = (state) => {
     showMask: state.showMask,
     modifyIndex: state.modifyIndex,
     comments: state.comments
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps
-)(CommentApp)
+)(CommentApp);
