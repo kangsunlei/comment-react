@@ -1,22 +1,38 @@
-import React, { Component } from 'react'
-import CommentInput from '../components/CommentInput'
-import CommentList from '../components/CommentList'
-import ModifyMask from './ModifyMask'
-import { connect } from 'react-redux'
+import React, { Component, PropTypes } from 'react';
+import CommentInput from '../components/CommentInput';
+import CommentList from '../components/CommentList';
+import { connect } from 'react-redux';
+import { addComment } from '../reducers/comments';
 
 class CommentApp extends Component {
-  constructor(props, context) {
-    super(props, context);
-    console.log(props)
+
+  static propTypes = {
+    dispatch: PropTypes.func
+  };
+
+  static childContextTypes = {
+    dispatch: PropTypes.func
+  };
+
+  getChildContext() {
+    return {
+      dispatch: this.props.dispatch
+    };
+  }
+
+  addComment = (comment, index) => {
+    this.props.dispatch(addComment(comment, index));
   }
 
   render() {
-    const { showMask } = this.props;
+    const { showMask, comments, modifyIndex } = this.props;
     return (
       <div className='wrapper'>
-        <CommentInput />
-        <CommentList />
-        { showMask && <ModifyMask /> }
+        <CommentInput onSubmit={this.addComment} comments={comments} />
+        <CommentList comments={comments} />
+        { showMask && <div className="mask">
+            <CommentInput isModify={true} index={modifyIndex} comments={comments} onSubmit={this.addComment} />
+          </div> }
       </div>
     )
   }
@@ -24,7 +40,9 @@ class CommentApp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    showMask: state.showMask
+    showMask: state.showMask,
+    modifyIndex: state.modifyIndex,
+    comments: state.comments
   }
 }
 

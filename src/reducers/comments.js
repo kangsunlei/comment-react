@@ -19,23 +19,24 @@ export default function (state, action) {
       }
     case ADD_COMMENT:
       // 新增评论
-      return {
-        comments: [...state.comments, action.comment]
+      if(action.index !== undefined){
+        if(action.index !== -1) state.comments[action.index] = action.comment;
+        state.showMask = false;
+      } else {
+        state.comments = [...state.comments, action.comment];
       }
+      return {...state};
     case DELETE_COMMENT:
       // 删除评论
-      return {
-        comments: [
-          ...state.comments.slice(0, action.commentIndex),
-          ...state.comments.slice(action.commentIndex + 1)
-        ]
-      }
+      state.comments = [
+        ...state.comments.slice(0, action.commentIndex),
+        ...state.comments.slice(action.commentIndex + 1)
+      ]
+      return {...state};
     case MODIFY_COMMENT:
-      return {
-        modifyIndex: action.commentIndex,
-        comments: [...state.comments],
-        showMask: true
-      }
+      state.modifyIndex = action.commentIndex;
+      state.showMask = true;
+      return {...state}
     default:
       return state
   }
@@ -49,10 +50,11 @@ export const initComments = (comments) => {
   }
 }
 
-export const addComment = (comment) => {
+export const addComment = (comment, index) => {
   return {
     type: ADD_COMMENT,
-    comment
+    comment,
+    index
   }
 }
 

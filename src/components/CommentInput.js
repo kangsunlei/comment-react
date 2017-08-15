@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { addComment } from '../reducers/comments'
 
-class CommentInput extends Component {
+export default class CommentInput extends Component {
   static propTypes = {
     comments: PropTypes.array,
     onSubmit: PropTypes.func,
@@ -15,9 +13,15 @@ class CommentInput extends Component {
 
   constructor (props) {
     super(props)
+    const {index, comments, isModify} = props;
+    const comment = comments[index];
+    const {username, content} = isModify ? comment : props;
     this.state = {
-      username: props.username,
-      content: props.content
+      comment,
+      username,
+      content,
+      index,
+      isModify
     }
   }
 
@@ -60,38 +64,45 @@ class CommentInput extends Component {
     })
   }
 
-  handleSubmitComment (comment) {
-    if (!comment) return
+  handleSubmitComment (comment, index) {
+    if (!comment) return;
     if (!comment.username) return alert('请输入用户名')
     if (!comment.content) return alert('请输入评论内容')
-    const { comments } = this.props
-    const newComments = [...comments, comment]
+    const { comments } = this.props;
+    let newComments = [...comments];
+    if(index !== undefined) {
+      newComments[index] = comment;
+    } else {
+      newComments.push(comment);
+    }
     localStorage.setItem('comments', JSON.stringify(newComments))
     if (this.props.onSubmit) {
-      this.props.onSubmit(comment)
+      this.props.onSubmit(comment, index)
     }
   }
 
-  handleSubmit () {
+  handleSubmit (index) {
     this.handleSubmitComment({
       id: `com_${new Date().getTime()}`,
       username: this.state.username,
       content: this.state.content,
       createdTime: +new Date()
-    })
+    }, index)
     this.setState({ content: '' })
   }
 
   render () {
+    const {username, content, isModify, index} = this.state;
     return (
       <div className='comment-input'>
         <div className='comment-field'>
           <span className='comment-field-name'>用户名：</span>
           <div className='comment-field-input'>
             <input
-              value={this.state.username}
+              value={username}
               onBlur={this.handleUsernameBlur.bind(this)}
-              onChange={this.handleUsernameChange.bind(this)} />
+              onChange={this.handleUsernameChange.bind(this)}
+              disabled={isModify} />
           </div>
         </div>
         <div className='comment-field'>
@@ -99,36 +110,15 @@ class CommentInput extends Component {
           <div className='comment-field-input'>
             <textarea
               ref={(textarea) => this.textarea = textarea}
-              value={this.state.content}
+              value={content}
               onChange={this.handleContentChange.bind(this)} />
           </div>
         </div>
         <div className='comment-field-button'>
-          <button
-            onClick={this.handleSubmit.bind(this)}>
-            发布
-          </button>
+          { isModify && <button className='cancle-btn' onClick={this.handleSubmit.bind(this, -1)}>取消</button> }
+          <button onClick={this.handleSubmit.bind(this, index)}>发布</button>
         </div>
       </div>
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    comments: state.comments
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSubmit: (comment) => {
-      dispatch(addComment(comment))
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommentInput)

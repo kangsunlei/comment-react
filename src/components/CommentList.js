@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Comment from './Comment'
-import { initComments, deleteComment, modifyComment } from '../reducers/comments'
+import React, { Component, PropTypes } from 'react';
+import Comment from './Comment';
+import { initComments, deleteComment, modifyComment } from '../reducers/comments';
 
-class CommentList extends Component {
+export default class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array,
     initComments: PropTypes.func,
@@ -14,6 +13,10 @@ class CommentList extends Component {
     comments: []
   }
 
+  static contextTypes = {
+    dispatch: PropTypes.func
+  }
+
   componentWillMount () {
     this._loadComments()
   }
@@ -21,7 +24,7 @@ class CommentList extends Component {
   _loadComments () {
     let comments = localStorage.getItem('comments')
     comments = comments ? JSON.parse(comments) : []
-    this.props.initComments(comments)
+    this.context.dispatch(initComments(comments))
   }
 
   handleDeleteComment (index) {
@@ -31,21 +34,18 @@ class CommentList extends Component {
       ...comments.slice(index + 1)
     ]
     localStorage.setItem('comments', JSON.stringify(newComments))
-    if (this.props.onDeleteComment) {
-      this.props.onDeleteComment(index)
-    }
+    this.context.dispatch(deleteComment(index))
   }
 
   handleModifyComment (index) {
-    if (this.props.onModifyComment) {
-      this.props.onModifyComment(index)
-    }
+    this.context.dispatch(modifyComment(index))
   }
 
   render() {
+    const {comments} = this.props;
     return (
       <div>
-        {this.props.comments.map((comment, i) =>
+        {comments.map((comment, i) =>
           <Comment
             comment={comment}
             key={i}
@@ -57,28 +57,3 @@ class CommentList extends Component {
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    comments: state.comments
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    initComments: (comments) => {
-      dispatch(initComments(comments))
-    },
-    onDeleteComment: (commentIndex) => {
-      dispatch(deleteComment(commentIndex))
-    },
-    onModifyComment: (index) => {
-      dispatch(modifyComment(index))
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommentList)
