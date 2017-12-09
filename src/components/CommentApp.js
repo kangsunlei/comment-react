@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import CommentInput from '../components/CommentInput';
-import CommentList from '../components/CommentList';
+import CommentInput from './CommentInput';
+import CommentList from './CommentList';
+import Test from './Test';
 import { connect } from 'react-redux';
 import { addComment } from '../reducers/comments';
 
@@ -30,6 +31,7 @@ class CommentApp extends Component {
       <div className='wrapper'>
         <CommentInput onSubmit={this.addComment} comments={comments} />
         <CommentList comments={comments} />
+        <Test/>
         { showMask && <div className="mask">
             <CommentInput isModify={true} index={modifyIndex} comments={comments} onSubmit={this.addComment} />
           </div> }

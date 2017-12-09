@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import CommentApp from './components/CommentApp';
 import commentsReducer from './reducers/comments';
 import logger from 'redux-logger';
-import './index.css';
+import './css/index.css';
 
 const store = createStore(
   commentsReducer,
