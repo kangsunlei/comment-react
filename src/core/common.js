@@ -1,3 +1,53 @@
+export function ajax(options) {
+    const props = {
+        credentials: 'include',
+        method: options.method || 'GET',
+        'Content-Type': options.contentType || 'application/json'
+    };
+
+    const headers = { 'X-Requested-With': 'XMLHttpRequest' };
+
+    if (options.headers) {
+        Object.assign(headers, options.headers);
+    }
+    props.headers = headers;
+
+    if (options.data) {
+        props.method = 'post';
+        props.body = options.formData ? options.data : JSON.stringify(options.data);
+    }
+    const url = options.url.indexOf('?') > -1 ? `${options.url}&_=${+new Date()}` : `${options.url}?_=${+new Date()}`; //fix ie cache
+
+    // TODO: add global block
+    return fetch(url, props).then(response => {
+        if (response.status === 500) {
+            alert('服务器开了一点小差，已通知程序猿小哥处理，请稍等片刻或刷新重试。');
+        } else if (response.status === 502) {
+            alert('服务器错误，请重试 (502)');
+        } else if (response.status === 404) {
+            alert('网络出错(404)，请检查后重试');
+        } else if (response.status === 403) {
+            alert('你无权限访问');
+        } else {
+            return response.json();
+        }
+        if (options.resolve) {
+            options.resolve(false);
+        }
+    }).then(result => {
+        //resolve confirm promise
+        if (options.resolve) {
+            options.resolve(result.success);
+        }
+
+        if (result.errors) {
+        }
+        return result;
+    }).catch(e => {
+        console.log(e)
+    });
+}
+
 export function formatDate(d, format, noHourMinute) {
     if(typeof(d) !== 'object') {
         d = new Date(d);

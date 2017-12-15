@@ -1,0 +1,37 @@
+#root {
+    height: 100%;
+}
+
+.login {
+    display: flex;
+    height: 100%;
+    align-items: center
+}
+
+.login h1 {
+    text-align: center
+}
+
+.login .login-tab-wrapper {
+    width: 300px;
+    min-height: 260px;
+    padding: 30px;
+    border-radius: 2px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+    margin: 0 auto;
+}
+
+.login .login-wrapper .form-control {
+    width: 100%;
+}
+
+.login .login-wrapper .error {
+    font-size: 12px;
+    height: 18px;
+    color: red;
+}
+
+.login .login-wrapper .btn {
+    float: right;
+    margin-top: 10px;
+}
