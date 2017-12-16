@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Comment from './Comment';
-import { initComments, deleteComment, modifyComment } from '../reducers/comments';
+import { initComments, deleteComment, modifyComment } from '../../reducers/comments';
 
 export default class CommentList extends Component {
   static propTypes = {
@@ -9,12 +9,13 @@ export default class CommentList extends Component {
     onDeleteComment: PropTypes.func
   }
 
+  static contextTypes = {
+    dispatch: PropTypes.func,
+    location: PropTypes.object
+  };
+
   static defaultProps = {
     comments: []
-  }
-
-  static contextTypes = {
-    dispatch: PropTypes.func
   }
 
   componentWillMount () {

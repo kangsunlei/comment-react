@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import CommentApp from './Comments/CommentApp';
 
 class Main extends Component {
     static propTypes = {
@@ -14,22 +15,28 @@ class Main extends Component {
         location: PropTypes.object
     };
 
-    constructor (props){
+    constructor(props) {
         super(props);
     }
-    componentDidMount () {
-        console.log(this.props)
+
+    getChildContext() {
+        return {
+            dispatch: this.props.dispatch,
+            location: this.props.location
+        };
     }
+
     render() {
-        return(
-            <h1>Main</h1>
-        )
+        const { comments } = this.props;
+        return <div className="main">
+            <CommentApp comments={comments} />
+        </div>;
     }
 }
 
 function mapStateToProps(state) {
     return {
-        comment: state.comment
+        comments: state.comments
     };
 }
 
