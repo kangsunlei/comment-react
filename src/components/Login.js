@@ -58,7 +58,7 @@ export default class Login extends Component {
         }
         if(name && password) {
             ajax({
-                url: `http://kangsunlei.com:4000/auth/${type}`,
+                url: `/auth/${type}`,
                 method: 'post',
                 data: { name, password }
             }).then(res => {
@@ -153,11 +153,11 @@ export default class Login extends Component {
                         indicatorColor="primary"
                         textColor="primary"
                     >
-                        <Tab label="注册" />
                         <Tab label="登录" />
+                        <Tab label="注册" />
                     </Tabs>
-                    {activeTab === 0 && this.renderForm('register')}
-                    {activeTab === 1 && this.renderForm('login')}
+                    {activeTab === 0 && this.renderForm('login')}
+                    {activeTab === 1 && this.renderForm('register')}
                 </div>
             </div>
         );
