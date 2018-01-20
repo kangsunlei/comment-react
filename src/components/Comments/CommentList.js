@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Comment from './Comment';
 import { initComments, deleteComment, modifyComment } from '../../reducers/comments';
 

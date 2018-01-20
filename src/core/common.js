@@ -1,11 +1,14 @@
 export function ajax(options) {
+
     const props = {
         credentials: 'include',
-        method: options.method || 'GET',
-        'Content-Type': options.contentType || 'application/json'
+        method: options.method || 'GET'
     };
 
-    const headers = { 'X-Requested-With': 'XMLHttpRequest' };
+    const headers = {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': options.contentType || 'application/json'
+    };
 
     if (options.headers) {
         Object.assign(headers, options.headers);
@@ -17,7 +20,7 @@ export function ajax(options) {
         props.body = options.formData ? options.data : JSON.stringify(options.data);
     }
     const url = options.url.indexOf('?') > -1 ? `${options.url}&_=${+new Date()}` : `${options.url}?_=${+new Date()}`; //fix ie cache
-
+    console.log(props)
     // TODO: add global block
     return fetch(url, props).then(response => {
         if (response.status === 500) {
@@ -103,3 +106,37 @@ export function formatDate(d, format, noHourMinute) {
     .replace('%ss', second < 10 ? '0' + second : second)
     .replace('%s', second);
 }
+
+export const debounce = function (fn, delay) {
+    let timer = null;
+    return function () {
+        const context = this, args = arguments;
+        clearTimeout(timer);
+
+        timer = setTimeout(function () {
+            fn.apply(context, args);
+        }, delay);
+    };
+};
+
+export const throttle = function (fn, threshhold) {
+    let last = null;
+    let timer = null;
+    threshhold || (threshhold = 250);
+
+    return function () {
+        const context = this, args = arguments;
+        let now = +new Date();
+        if (last && now < (last + threshhold)) {
+            clearTimeout(timer);
+
+            timer = setTimeout(function () {
+                last = now;
+                fn.apply(context, args);
+            }, threshhold);
+        } else {
+            last = now;
+            fn.apply(context, args);
+        }
+    };
+};

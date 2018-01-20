@@ -6,9 +6,6 @@ import CommentList from './CommentList';
 import { addComment } from '../../reducers/comments';
 
 export default class CommentApp extends Component {
-  constructor(props){
-    super(props);
-  }
 
   static contextTypes = {
     dispatch: PropTypes.func,

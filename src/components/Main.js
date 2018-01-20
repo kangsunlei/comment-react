@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import CommentApp from './Comments/CommentApp';
+import List from './Lists/List';
+import Editor from './Editor/Editor';
 
 class Main extends Component {
     static propTypes = {
@@ -15,10 +17,6 @@ class Main extends Component {
         location: PropTypes.object
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     getChildContext() {
         return {
             dispatch: this.props.dispatch,
@@ -26,11 +24,25 @@ class Main extends Component {
         };
     }
 
+    renderMainView() {
+        const { comments, match: { params: { module } } } = this.props;
+        if (module) {
+            if (module === 'list') {
+                return <List />;
+            } else if (module === 'editor') {
+                return <Editor />;
+            }
+        } else {
+            return <CommentApp comments={comments} />;
+        }
+    }
+
     render() {
-        const { comments } = this.props;
-        return <div className="main">
-            <CommentApp comments={comments} />
-        </div>;
+        return (
+            <div className="main">
+                {this.renderMainView()}
+            </div>
+        );
     }
 }
 
