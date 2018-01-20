@@ -1,1 +1,1 @@
-export const ADD_DRAFTS = '/addDrafts';
+export const ADD_DRAFTS = '/drafts/add';
