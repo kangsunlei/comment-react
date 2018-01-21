@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import * as API from '../constants/API';
 import * as types from '../constants/ActionTypes';
 
 export const actions = {

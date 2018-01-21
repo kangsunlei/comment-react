@@ -7,7 +7,10 @@ router.get('/', function (req, res) {
         if (err) {
             res.json({ err });
         }
-        res.json({ data: drafts });
+        res.json({
+            success: true,
+            drafts
+        });
     });
 });
 

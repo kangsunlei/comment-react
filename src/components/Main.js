@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import MainHeader from './MainHeader';
 import CommentApp from './Comments/CommentApp';
-import List from './Lists/List';
+import DraftList from './Drafts/DraftList';
 import Editor from './Editor/Editor';
 
 class Main extends Component {
@@ -25,12 +26,11 @@ class Main extends Component {
     }
 
     renderMainView() {
-        let { comments, match: { params: { module } } } = this.props;
-        comments = comments.getIn(['items']).toJS();
+        let { comments, drafts,  match: { params: { module } } } = this.props;
 
         if (module) {
             if (module === 'list') {
-                return <List />;
+                return <DraftList drafts={drafts}/>;
             } else if (module === 'editor') {
                 return <Editor />;
             }
@@ -42,6 +42,7 @@ class Main extends Component {
     render() {
         return (
             <div className="main">
+                <MainHeader/>
                 {this.renderMainView()}
             </div>
         );
@@ -50,7 +51,8 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        comments: state.comments
+        comments: state.comments,
+        drafts: state.drafts
     };
 }
 

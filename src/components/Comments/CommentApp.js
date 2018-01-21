@@ -18,14 +18,15 @@ export default class CommentApp extends Component {
 
     render() {
         const { showMask, comments, modifyIndex } = this.props;
+        const { items:commentItems } = comments.toJS();
 
         return (
             <div className='wrapper'>
-                <CommentInput onSubmit={this.addComment} comments={comments} />
-                <CommentList comments={comments} />
+                <CommentInput onSubmit={this.addComment} comments={commentItems} />
+                <CommentList comments={commentItems} />
                 {/* <Test/> */}
                 {showMask && <div className="mask">
-                    <CommentInput isModify={true} index={modifyIndex} comments={comments} onSubmit={this.addComment} />
+                    <CommentInput isModify={true} index={modifyIndex} comments={commentItems} onSubmit={this.addComment} />
                 </div>}
             </div>
         );

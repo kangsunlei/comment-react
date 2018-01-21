@@ -183,7 +183,22 @@ code {
     display: flex;
     flex-direction: column;
 
+    .main-header {
+        display: flex;
+
+        .title {
+            flex: 1
+        }
+    }
+
     .main-content {
         flex: 1 1 auto;
+    }
+
+    .fetching-wrapper {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
