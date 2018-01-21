@@ -20,7 +20,6 @@ export function ajax(options) {
         props.body = options.formData ? options.data : JSON.stringify(options.data);
     }
     const url = options.url.indexOf('?') > -1 ? `${options.url}&_=${+new Date()}` : `${options.url}?_=${+new Date()}`; //fix ie cache
-    console.log(props)
     // TODO: add global block
     return fetch(url, props).then(response => {
         if (response.status === 500) {
@@ -47,7 +46,7 @@ export function ajax(options) {
         }
         return result;
     }).catch(e => {
-        console.log(e)
+        console.log(e);
     });
 }
 

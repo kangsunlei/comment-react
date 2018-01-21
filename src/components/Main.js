@@ -25,7 +25,9 @@ class Main extends Component {
     }
 
     renderMainView() {
-        const { comments, match: { params: { module } } } = this.props;
+        let { comments, match: { params: { module } } } = this.props;
+        comments = comments.getIn(['items']).toJS();
+
         if (module) {
             if (module === 'list') {
                 return <List />;
