@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware, { takeLatest } from 'redux-saga';
-import { call, put, fork, wait } from 'redux-saga/effects';
+import { call, put, fork } from 'redux-saga/effects';
 import models from '../models';
 import logger from 'redux-logger';
 
@@ -44,7 +44,7 @@ models.forEach(m => {
 
         sagas.push(fork(function* () {
             yield* fn(action_type, action => {
-                return m.effects[action_type](action, { call, put, wait });
+                return m.effects[action_type](action, { call, put });
             });
         }));
     }
