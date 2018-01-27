@@ -40,7 +40,7 @@ class Main extends Component {
                     return <Redirect to={{ pathname: '/home/comment' }} />;
             }
         } else {
-            return <Redirect to={{ pathname: '/home/comment' }} />;;
+            return <Redirect to={{ pathname: '/home/comment' }} />;
         }
     }
 
