@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import MainHeader from './MainHeader';
 import CommentApp from './Comments/CommentApp';
@@ -29,13 +29,18 @@ class Main extends Component {
         let { comments, drafts,  match: { params: { module } } } = this.props;
 
         if (module) {
-            if (module === 'list') {
-                return <DraftList drafts={drafts}/>;
-            } else if (module === 'editor') {
-                return <Editor />;
+            switch (module) {
+                case 'list':
+                    return <DraftList drafts={drafts} />;
+                case 'editor':
+                    return <Editor />;
+                case 'comment':
+                    return <CommentApp comments={comments} />;
+                default:
+                    return <Redirect to={{ pathname: '/home/comment' }} />;
             }
         } else {
-            return <CommentApp comments={comments} />;
+            return <Redirect to={{ pathname: '/home/comment' }} />;;
         }
     }
 

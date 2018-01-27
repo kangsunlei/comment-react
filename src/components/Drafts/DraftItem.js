@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import marked from 'marked';
 import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
@@ -20,7 +21,7 @@ export default class DraftItem extends Component {
                     <CardContent>
                         <Typography className="time">{formatDate(updateAt)}</Typography>
                         <Typography className="title" type="headline" component="h2">{title}</Typography>
-                        <Typography className="content">{content}</Typography>
+                        <Typography className="content" dangerouslySetInnerHTML={{ __html: marked(content) }}></Typography>
                     </CardContent>
                     <CardActions>
                         <Button dense>查看详情</Button>
