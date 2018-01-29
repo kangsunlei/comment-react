@@ -33,7 +33,26 @@ router.post('/add', function (req, res) {
             msg: '参数不合法！'
         });
     }
+});
 
+router.get('/get', function (req, res) {
+    if (req.query.id) {
+        Drafts.findById(req.query.id, function (err, draft) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json({
+                    success: true,
+                    draft
+                });
+            }
+        });
+    } else {
+        res.json({
+            success: false,
+            msg: '参数不合法！'
+        });
+    }
 });
 
 module.exports = router;

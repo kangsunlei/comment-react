@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import marked from 'marked';
 import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
@@ -14,7 +15,7 @@ export default class DraftItem extends Component {
 
     render() {
         const { item } = this.props;
-        const { title, content, meta: { updateAt } } = item;
+        const { title, content, _id, meta: { updateAt } } = item;
         return (
             <div className="draft-items">
                 <Card>
@@ -24,7 +25,7 @@ export default class DraftItem extends Component {
                         <Typography className="content" dangerouslySetInnerHTML={{ __html: marked(content) }}></Typography>
                     </CardContent>
                     <CardActions>
-                        <Button dense>查看详情</Button>
+                        <Button dense><Link to={`/home/draft/${_id}`}>查看详情</Link></Button>
                     </CardActions>
                 </Card>
             </div>

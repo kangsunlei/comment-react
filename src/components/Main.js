@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import MainHeader from './MainHeader';
 import CommentApp from './Comments/CommentApp';
 import DraftList from './Drafts/DraftList';
+import DraftPage from './Drafts/DraftPage';
 import Editor from './Editor/Editor';
 
 class Main extends Component {
@@ -26,7 +27,7 @@ class Main extends Component {
     }
 
     renderMainView() {
-        let { comments, drafts,  match: { params: { module } } } = this.props;
+        let { comments, drafts,  match: { params: { module, id } } } = this.props;
 
         if (module) {
             switch (module) {
@@ -36,6 +37,8 @@ class Main extends Component {
                     return <Editor />;
                 case 'comment':
                     return <CommentApp comments={comments} />;
+                case 'draft':
+                    return <DraftPage id={id} />;
                 default:
                     return <Redirect to={{ pathname: '/home/comment' }} />;
             }

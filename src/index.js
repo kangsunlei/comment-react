@@ -17,6 +17,7 @@ ReactDOM.render(
                 <Route exact path="/" component={Main} />
                 <Route path="/login" component={Login} />
                 <Route exact path="/home/:module" component={Main} />
+                <Route exact path="/home/:module/:id" component={Main} />
                 <Route component={Main} />
             </Switch>
         </BrowserRouter>
