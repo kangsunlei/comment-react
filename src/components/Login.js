@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import Visibility from 'material-ui-icons/Visibility';
-import VisibilityOff from 'material-ui-icons/VisibilityOff';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons//Visibility';
+import VisibilityOff from '@material-ui/icons//VisibilityOff';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { ajax } from '../core/common';
 
@@ -75,7 +78,7 @@ export default class Login extends Component {
                 formError: '用户名或密码不能为空！'
             });
         }
-        
+
     }
 
     renderForm = (type) => {
@@ -133,8 +136,8 @@ export default class Login extends Component {
                 {formError}
             </div>
             <Button
-                raised
-                dense
+                raised="true"
+                dense="true"
                 className="btn"
                 color="primary"
                 onClick={() => this.handleAction(type)}

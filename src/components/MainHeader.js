@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 export default class MainHeader extends Component {
     static contextTypes = {
@@ -17,9 +17,9 @@ export default class MainHeader extends Component {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography type="title" color="inherit" className="title">
-                            Title
+                            Comment App
                         </Typography>
-                        <Button color="contrast">Login</Button>
+                        <Button variant="raised" className="login-btn" href="/login" color="primary">Login</Button>
                     </Toolbar>
                 </AppBar>
             </div>

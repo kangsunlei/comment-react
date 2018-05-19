@@ -1,28 +1,31 @@
+@import 'util/varilables.scss';
+$editor-bg: #f6f6f6;
+
 .editor {
     display: flex;
     flex-direction: column;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #333;
+    color: $font-base;
 
     .editor-header {
         flex: 0 0 auto;
         display: flex;
         height: 50px;
         line-height: 50px;
-        border-bottom: 1px solid #ccc;
-
-        .title {
-            flex: 1 1 auto;
-            padding: 0 20px;
-
-            input {
-                height: 50px;
-                box-sizing: border-box;
-            }
-        }
+        border-bottom: 1px solid $border-color;
 
         button {
             margin: 5px 20px;
+        }
+    }
+
+    .title {
+        flex: 1 1 auto;
+        padding: 0 20px;
+
+        input {
+            height: 50px;
+            box-sizing: border-box;
         }
     }
 
@@ -34,15 +37,13 @@
     .edit {
         flex: 1 1 auto;
         width: 50%;
-        border: none;
-        border-right: 1px solid #ccc;
+        border: 0;
+        border-right: 1px solid $border-color;
         resize: none;
         outline: none;
-        background-color: #f6f6f6;
+        background-color: $editor-bg;
         font-size: 14px;
-        font-family: 'Monaco',
-        courier,
-        monospace;
+        font-family: 'Monaco', courier, monospace;
         padding: 20px;
         box-sizing: border-box;
     }

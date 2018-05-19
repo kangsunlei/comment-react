@@ -1,10 +1,11 @@
-#root {
+.root {
   height: 100%; }
 
 .login {
   display: flex;
   height: 100%;
-  align-items: center; }
+  align-items: center;
+  justify-content: center; }
   .login .login-tab-wrapper {
     width: 300px;
     min-height: 260px;
@@ -17,7 +18,7 @@
   .login .login-wrapper .error {
     font-size: 12px;
     height: 18px;
-    color: red; }
+    color: #f00; }
   .login .login-wrapper .btn {
     float: right;
     margin-top: 10px; }

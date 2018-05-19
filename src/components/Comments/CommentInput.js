@@ -26,7 +26,7 @@ export default class CommentInput extends Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._loadUsername();
     }
 

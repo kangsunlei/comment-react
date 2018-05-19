@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import marked from 'marked';
 import PropTypes from 'prop-types';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { formatDate } from '../../core/common';
 
 export default class DraftItem extends Component {
@@ -25,7 +27,7 @@ export default class DraftItem extends Component {
                         <Typography className="content" dangerouslySetInnerHTML={{ __html: marked(content) }}></Typography>
                     </CardContent>
                     <CardActions>
-                        <Button dense><Link to={`/home/draft/${_id}`}>查看详情</Link></Button>
+                        <Button dense="true"><Link to={`/home/draft/${_id}`}>查看详情</Link></Button>
                     </CardActions>
                 </Card>
             </div>

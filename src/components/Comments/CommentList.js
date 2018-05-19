@@ -19,7 +19,7 @@ export default class CommentList extends Component {
         comments: []
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.context.dispatch(actions.initComments());
     }
 

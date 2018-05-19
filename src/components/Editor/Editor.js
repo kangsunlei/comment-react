@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import { debounce, ajax } from '../../core/common';
-import Input from 'material-ui/Input';
-import Button from 'material-ui/Button';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 import { ADD_DRAFTS } from '../../constants/API';
 
 import 'highlight.js/styles/tomorrow-night.css';
@@ -67,7 +67,7 @@ export default class Editor extends Component {
                         }}
                         inputRef={el => this.titleEl = el }
                     />
-                    <Button raised color="primary" onClick={this.handlePublish}>
+                    <Button raised="true" color="primary" onClick={this.handlePublish}>
                         发布
                     </Button>
                 </div>

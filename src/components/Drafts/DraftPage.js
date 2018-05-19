@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import marked from 'marked';
 import PropTypes from 'prop-types';
-import { formatDate, ajax } from '../../core/common';
+import { ajax } from '../../core/common';
 import { GET_DRAFT } from '../../constants/API';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class DraftPage extends Component {
     static contextTypes = {
@@ -21,7 +21,7 @@ export default class DraftPage extends Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const { id } = this.props;
         ajax({
             url: `${GET_DRAFT}?id=${id}`
