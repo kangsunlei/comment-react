@@ -19,7 +19,11 @@ export default class MainHeader extends Component {
                         <Typography type="title" color="inherit" className="title">
                             Comment App
                         </Typography>
-                        <Button variant="raised" className="login-btn" href="/login" color="primary">Login</Button>
+                        <Button href="/" color="inherit">Home</Button>
+                        <Button href="/home/star" color="inherit">stars</Button>
+                        <Button href="/home/list" color="inherit">List</Button>
+                        <Button href="/home/editor" color="inherit">Editor</Button>
+                        <Button href="/login" color="inherit">Login</Button>
                     </Toolbar>
                 </AppBar>
             </div>

@@ -1,0 +1,11 @@
+.github-star {
+    display: flex;
+
+    .list {
+        flex: 0 0 240px;
+    }
+
+    .container {
+        flex: 1 1 auto;
+    }
+}

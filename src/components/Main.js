@@ -4,6 +4,7 @@ import { withRouter, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import MainHeader from './MainHeader';
 import CommentApp from './Comments/CommentApp';
+import GithubStar from './GithubStar/GithubStar';
 import DraftList from './Drafts/DraftList';
 import DraftPage from './Drafts/DraftPage';
 import Editor from './Editor/Editor';
@@ -31,19 +32,21 @@ class Main extends Component {
 
         if (module) {
             switch (module) {
+                case 'star':
+                    return <GithubStar drafts={drafts} />;
                 case 'list':
-                    return <DraftList drafts={drafts} />;
+                    return <DraftList drafts={drafts}/>;
                 case 'editor':
-                    return <Editor />;
+                    return <Editor/>;
                 case 'comment':
-                    return <CommentApp comments={comments} />;
+                    return <CommentApp comments={comments}/>;
                 case 'draft':
-                    return <DraftPage id={id} />;
+                    return <DraftPage id={id}/>;
                 default:
-                    return <Redirect to={{ pathname: '/home/comment' }} />;
+                    return <Redirect to={{ pathname: '/home/comment' }}/>;
             }
         } else {
-            return <Redirect to={{ pathname: '/home/comment' }} />;
+            return <Redirect to={{ pathname: '/home/comment' }}/>;
         }
     }
 

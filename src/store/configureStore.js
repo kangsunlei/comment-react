@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware, { takeLatest } from 'redux-saga';
-import { call, put, fork } from 'redux-saga/effects';
+import createSagaMiddleware from 'redux-saga';
+import { call, put, fork, takeLatest } from 'redux-saga/effects';
 import models from '../models';
 import logger from 'redux-logger';
 
